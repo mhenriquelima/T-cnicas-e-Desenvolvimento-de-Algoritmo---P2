@@ -20,12 +20,12 @@ int ta_dentro(int linha, int coluna) {
 }
 
 void inicializar_campo() {
-    for (int i = 0; i < LINHAS; i++) {
-        for (int j = 0; j < COLUNAS; j++) {
-            campo[i][j].minas = 0;
-            campo[i][j].revelado = 0;
-            campo[i][j].marcado = 0;
-            campo[i][j].minas_vizinhas = 0;
+    for (int linha = 0; linha < LINHAS; linha++) {
+        for (int coluna = 0; coluna < COLUNAS; coluna++) {
+            campo[linha][coluna].minas = 0;
+            campo[linha][coluna].revelado = 0;
+            campo[linha][coluna].marcado = 0;
+            campo[linha][coluna].minas_vizinhas = 0;
         }
     }
     srand(time(NULL));
@@ -36,10 +36,10 @@ void inicializar_campo() {
         if (campo[linha][coluna].minas == 0) {
             campo[linha][coluna].minas = 1;
             minas_colocadas++;
-            for (int i = -1; i <= 1; i++) {
-                for (int j = -1; j <= 1; j++) {
-                    if (ta_dentro(linha + i, coluna + j) && !(i == 0 && j == 0)) {
-                        campo[linha + i][coluna + j].minas_vizinhas++;
+            for (int linha_vizinha = -1; linha_vizinha <= 1; linha_vizinha++) {
+                for (int coluna_vizinha = -1; coluna_vizinha <= 1; coluna_vizinha++) {
+                    if (ta_dentro(linha + linha_vizinha, coluna + coluna_vizinha) && !(linha_vizinha == 0 && coluna_vizinha == 0)) {
+                        campo[linha + linha_vizinha][coluna + coluna_vizinha].minas_vizinhas++;
                     }
                 }
             }
@@ -49,22 +49,22 @@ void inicializar_campo() {
 
 void imprimir_campo(int revelar_tudo) {
     printf("   ");
-    for (int j = 0; j < COLUNAS; j++) {
-        printf("%2d ", j);
+    for (int coluna = 0; coluna < COLUNAS; coluna++) {
+        printf("%2d ", coluna);
     }
     printf("\n");
-    for (int i = 0; i < LINHAS; i++) {
-        printf("%2d ", i);
-        for (int j = 0; j < COLUNAS; j++) {
-            if (revelar_tudo || campo[i][j].revelado) {
-                if (campo[i][j].minas) {
-                    printf(" * ");
-                } else if (campo[i][j].minas_vizinhas > 0) {
-                    printf(" %d ", campo[i][j].minas_vizinhas);
+    for (int linha = 0; linha < LINHAS; linha++) {
+        printf("%2d ", linha);
+        for (int coluna = 0; coluna < COLUNAS; coluna++) {
+            if (revelar_tudo || campo[linha][coluna].revelado) {
+                if (campo[linha][coluna].minas) {
+                    printf(" B ");
+                } else if (campo[linha][coluna].minas_vizinhas > 0) {
+                    printf(" %d ", campo[linha][coluna].minas_vizinhas);
                 } else {
                     printf(" . ");
                 }
-            } else if (campo[i][j].marcado) {
+            } else if (campo[linha][coluna].marcado) {
                 printf(" M ");
             } else {
                 printf(" # ");
@@ -80,10 +80,10 @@ void revelar_celula(int linha, int coluna) {
     }
     campo[linha][coluna].revelado = 1;
     if (campo[linha][coluna].minas_vizinhas == 0 && !campo[linha][coluna].minas) {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (!(i == 0 && j == 0)) {
-                    revelar_celula(linha + i, coluna + j);
+        for (int linha_vizinha = -1; linha_vizinha <= 1; linha_vizinha++) {
+            for (int coluna_vizinha = -1; coluna_vizinha <= 1; coluna_vizinha++) {
+                if (!(linha_vizinha == 0 && coluna_vizinha == 0)) {
+                    revelar_celula(linha + linha_vizinha, coluna + coluna_vizinha);
                 }
             }
         }
@@ -98,9 +98,9 @@ void marcar_celula(int linha, int coluna) {
 
 int verificar_vitoria() {
     int celulas_reveladas = 0;
-    for (int i = 0; i < LINHAS; i++) {
-        for (int j = 0; j < COLUNAS; j++) {
-            if (campo[i][j].revelado) {
+    for (int linha = 0; linha < LINHAS; linha++) {
+        for (int coluna = 0; coluna < COLUNAS; coluna++) {
+            if (campo[linha][coluna].revelado) {
                 celulas_reveladas++;
             }
         }
