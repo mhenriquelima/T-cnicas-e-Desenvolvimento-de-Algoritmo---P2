@@ -1,0 +1,87 @@
+Linguagem C
+    ■ Precisão dos tipos:
+        Tipo Tamanho        (Bytes)         Abrangência
+        char                1               -128 127
+        unsigned char       1                0 255
+        int                 4               -2.147.483.648 2.147.483.647
+        unsigned int        4                0 4.294.967.295
+        short int           2               -32768 32767
+        long int            4               -2.147.483.648 2.147.483.647
+        unsigned long int   4                0 4.294.967.295
+        float               4               ± 3,4·10 -38 ± 3,4·1038
+        double              8               ± 1,7·10 -308 ± 1,7·10 308
+        long double         10              ± 3,4·10 -4932 ± 3,4·10 4932
+
+    ■ Máscaras de formatação
+        ■ Símbolo de por cento seguido de uma letra:
+            ◻ %c Caractere
+            ◻ %d Inteiros com sinal
+            ◻ %u Inteiros sem sinal
+            ◻ %f Números float
+            ◻ %lf Números double
+            ◻ %e Notação científica
+            ◻ %x Números em hexadecimal
+            ◻ %s Cadeia de caracteres (strings)
+    ■ Caracteres de Controle
+        ■ Barra invertida seguido de um caractere:
+            ◻ \a bip
+            ◻ \b backspace
+            ◻ \n nova linha
+            ◻ \r return
+            ◻ \t tabulação horizontal
+            ◻ \’ apóstrofe
+            ◻ \” aspas
+            ◻ \\ barra invertida
+
+    printf()
+    ■ Exemplo:
+        ◻ int i = 10;
+        ◻ float r = 3.1514;
+        ◻ Invertendo:
+            #include <stdio.h>
+            int main()
+            {
+                int i = 10;
+                float r = 7.1234;
+                printf("Inteiro: %d, Real: %f \n", r, i);  //inteiro: -1610612736, Real: 0.000000
+            }
+            printf()
+
+    scanf()
+    ■ Lê qualquer tipo de dado primitivo;
+    ■ Utiliza um texto formatado como máscara de leitura;
+    ■ Utiliza o endereço das variáveis como parâmetro.
+    #include <stdio.h>
+    int main()
+    {
+        // declaracao das variaveis
+        int numero;
+        printf("Entre com um valor:");
+        scanf("%d", &numero);
+    }
+
+    getchar()
+    ■ Leitura de variáveis:
+    ■ Função Get Char ou,
+    ■ getchar():
+        ◻ Lê um caractere (apenas 1) da entrada e o armazena em uma variável. Não lê números.
+        ◻ Assinatura:
+            ■ int getchar(void);
+        ◻ A variável a ser lida deve receber o retorno da função.
+        ◻ Pode ser utilizada apenas para bloquear o fluxo de
+    execução do programa.
+
+    Comentário                                          Exemplo             Função
+    Tangente de x                                       tan(x)              tan
+    Raiz quadrada de x                                  sqrt(x)             sqrt
+    Seno de x                                           sin(x)              sin
+    Calcula x elevado à potência y                      pow(x, y)           pow
+    Logaritmo decimal de x                              log10(x)            log10
+    Logaritmo natural de x                              log(x)              log
+    Arredonda o número real para baixo; floor(3.2) é 3  floor(x)            floor
+    Valor absoluto de x                                 fabs(x)             fabs
+    e elevado à potencia x                              exp(x)              exp
+    Cosseno de x (x em radianos)                        cos(x)              cos
+    Arredonda o número real para cima; ceil(3.2) é 4    ceil(x)             ceil
+
+                                #include <math.h>
