@@ -1,0 +1,41 @@
+■ Alocação Estática:
+    ◻ Variáveis locais, globais, matrizes, e estruturas.
+    ◻ Exige que o programador saiba, de antemão, a quantidade de armazenamento necessária para todas situações em que o 
+    programa possa se encontrar.
+
+■ Alocação Dinâmica:
+    ◻ Alguns programas precisam ser capazes de ajustar as suas necessidades de armazenamento como resposta a eventos que
+    só serão conhecidos durante a execução do programa.
+    ◻ Permite que o programa possa requisitar mais memória em tempo de execução.
+        ■ Função malloc()
+            ◻ Assinatura: “void *malloc(size_t size)”
+            ◻ size_t =~ int
+            ◻ Aloca uma área de memória de tamanho size;
+            ◻ Retorna um ponteiro para essa área de memória.
+            Ponteiro para o primeiro byte da região alocada.
+            ◻ Se não houver memória disponível é retornado
+            null.
+        ■ Função free()
+            ◻ Assinatura: “void free(void *ptr);”
+            ◻ Libera uma área de memória que fora previamente alocada;
+            ◻ Se ptr for NULL, o programa irá quebrar;
+        ■ Tamanho das variáveis:
+            ◻ sizeof():
+                ■ Retorna o tamanho de algum tipo, inclusive registro.
+    ◻ Gerenciamento de memória
+        ■ Em C, o gerenciamento de memória deve ser realizado pelo programador.
+        ■ Não possui Garbage Collection - (java)
+        ■ Torna C mais rápida, e mais trabalhosa;
+        ■ Valgrind.
+
+■ Vantagem do uso de ponteiros e alocação dinâmica:
+    ◻ Economia de memória;
+    ◻ Permite a construção de matrizes que se adaptem melhor ao tamanho dos dados;
+    ◻ Podem ser realocadas;
+    ◻ Passagem de parâmetro sem indicar o tamanho de nenhuma das dimensões.
+    ◻ Limite do vetor/matriz é a memória do computador. Na alocação estática o limite é ~10MB
+
+■ Exercício
+    Escreva um programa que declare um inteiro, um real e um char, e ponteiros para inteiro, real, e char. Associe as variáveis 
+    aos ponteiros (use &). Modifique os valores de cada variável usando os ponteiros. Imprima os valores das variáveis antes e
+    após a modificação.
