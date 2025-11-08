@@ -1,0 +1,282 @@
+Introdução as funções
+    - criar programas estruturados
+    - modularização de código
+    - reutilização de código
+    - facilitar a manutenção do código
+    - facilitar a leitura do código
+    - facilitar a depuração do código
+
+Declaração de funções
+    tipo_de_retorno nome_da_função (lista_de_parâmetros);
+    {
+        // corpo da função
+    }
+
+Tipo de retorno
+    - void
+        função que não retorna valor
+    - tipos primitivos
+        int, float, char, double
+    - ponteiros
+        int *, char *, float *, double *
+    - estruturas
+        struct nome_da_estrutura
+
+Parâmetros
+    - passagem por valor
+        cópia do valor é passada para a função
+        alterações feitas na cópia não afetam o valor original
+
+    ----------------------------------------------------------------------
+        ex.: 
+    ----------------------------------------------------------------------
+            int soma(int a, int b) {
+                int res;
+                res = a + b;
+
+                return res;
+            }
+    ----------------------------------------------------------------------
+            float media(float x, float y) {
+                return (x + y) / 2;
+            }
+    ----------------------------------------------------------------------
+            int potencia(int base, int expoente) {
+                int resultado = 1;
+                for (int i = 0; i < expoente; i++) {
+                    resultado *= base;
+                }
+                return resultado;
+            }
+    ----------------------------------------------------------------------
+
+Escopo de variáveis *** IMPORTANTE ***
+    variáveis locais
+        declaradas dentro da função
+        acessíveis apenas dentro da função
+
+    variáveis globais
+        declaradas fora de todas as funções
+        acessíveis por todas as funções do programa
+
+    ----------------------------------------------------------------------
+        ex.:
+    ----------------------------------------------------------------------
+            int contador_global = 0; // variável global
+
+            void incrementar_contador() {
+                contador_global++; // acessa a variável global
+            }
+
+            int main() {
+                incrementar_contador();
+                printf("Contador: %d\n", contador_global);
+                return 0;
+            }
+    ----------------------------------------------------------------------
+            int main() {
+                int contador_local = 0; // variável local
+                contador_local++;
+                printf("Contador local: %d\n", contador_local);
+                return 0;
+            }
+    ----------------------------------------------------------------------
+            int x = 10; // variável global
+
+            void secundaria() {
+                int x = 15; // variável local
+                printf("Valor de x na função secundaria: %d\n", x); // imprime 15
+            }
+
+            int main() { 
+                printf("Valor de x na função main: %d\n", x); // imprime 10
+                secundaria();
+                printf("Valor de x na função main após chamar secundaria: %d\n", x); // imprime 10
+
+                int y = 5; // variável local ao main
+
+                if (X>10) {
+                    int y = 20; // variável local ao bloco if
+                    printf("Valor de y dentro do if: %d\n", y); // imprime 20
+                }
+
+                printf("Valor de y fora do if: %d\n", y); // imprime 5
+
+                if (1) {
+                    y = 30; // modifica a variável local ao main
+                    printf("Valor de y dentro do if após modificação: %d\n", y); // imprime 30
+                }
+
+                printf("Valor final de y fora do if: %d\n", y); // imprime 30
+
+                return 0;
+            }
+    ----------------------------------------------------------------------
+
+Passgem de Parâmetros
+    - passagem por referência *** LEGAL DE APRENDER ***
+        endereço da variável é passado para a função
+        alterações feitas na variável afetam o valor original
+
+    ----------------------------------------------------------------------
+        ex.:
+    ----------------------------------------------------------------------
+            void troca(int *a, int *b) {
+                int temp;
+                temp = *a;
+                *a = *b;
+                *b = temp;
+            }
+
+            int main() {
+                int x = 5, y = 10;
+                troca(&x, &y);
+                printf("x: %d, y: %d\n", x, y); // imprime x: 10, y: 5
+                return 0;
+            }
+    ----------------------------------------------------------------------
+            void dobrar_valor(int *num) {
+                *num = *num * 2;
+            }
+            int main() {
+                int valor = 7;
+                dobrar_valor(&valor);
+                printf("Valor dobrado: %d\n", valor); // imprime 14
+                return 0;
+            }
+    ----------------------------------------------------------------------
+            typedef struct pessoa {
+                int idade;
+                int peso;
+            } Pessoa;
+
+            Pessoa criar_pessoa(int idade, int peso) {
+                Pessoa p;
+                p.idade = idade;
+                p.peso = peso;
+                return p;
+            }
+
+            Pessoa* criar_pessoa_ref(int idade, int peso) {
+                Pessoa *p = (Pessoa *)malloc(sizeof(Pessoa));
+                p->idade = idade;
+                p->peso = peso;
+                return p;
+            }
+
+            void aniversario(Pessoa *p) {
+                p->idade += 1;
+            }
+
+            void casa_da_vovo(Pessoa *p) {
+                p->peso += 5;
+            }
+
+            void imprime_pessoa(Pessoa *p) {
+                printf("Idade: %d, Peso: %d\n", p->idade, p->peso);
+            }
+
+            int main() {
+                Pessoa joao = criar_pessoa(25, 70);
+                Pessoa *maria = criar_pessoa_ref(30, 60);
+
+                imprime_pessoa(&joao);
+                imprime_pessoa(maria);
+
+                aniversario(&joao);
+                aniversario(maria);
+                casa_da_vovo(&joao);
+                casa_da_vovo(maria);
+
+                imprime_pessoa(&joao);
+                imprime_pessoa(maria);
+
+                free(maria);
+
+                return 0;
+            }
+    ----------------------------------------------------------------------
+
+Funções Recursivas
+    - função que chama a si mesma
+    - deve ter uma condição de parada para evitar loop infinito
+
+    ----------------------------------------------------------------------
+        ex.:
+    ----------------------------------------------------------------------
+                void imprime_um_valor(int valor) {
+                printf("%d\n", valor);
+                imprime_um_valor(valor - 1); // chamada recursiva
+            } // falta condição de parada! loop infinito
+
+            int main() {
+                imprime_um_valor(42);
+                return 0;
+            }
+    ----------------------------------------------------------------------
+            int fatorial(int n) {
+                if (n == 0) {
+                    return 1; // condição de parada
+                } else {
+                    return n * fatorial(n - 1); // chamada recursiva
+                }
+            }
+
+            int main() {
+                int num = 5;
+                printf("Fatorial de %d é %d\n", num, fatorial(num)); // imprime 120
+                return 0;
+            }
+    ----------------------------------------------------------------------
+            void fibonacci(int n, int num_atual, int prox_num) {
+                if (n == 0) return; // condição de parada
+
+                printf("%d ", num_atual); // imprime o número atual
+
+                fibonacci(n - 1, prox_num, num_atual + prox_num); // chamada recursiva
+            }
+
+            int main() {
+                int qtd_termos;
+                printf("Digite o número de termos da sequência de Fibonacci: ");
+                scanf("%d", &qtd_termos);
+
+                fibonacci(qtd_termos, 0, 1); 
+                return 0;
+            }
+    ----------------------------------------------------------------------
+            int fibonacci_localizacao(int n) {
+                if (n == 0) {
+                    return 0; // condição de parada
+                } else if (n == 1) {
+                    return 1; // condição de parada
+                } else {
+                    return fibonacci(n - 1) + fibonacci(n - 2); // chamada recursiva
+                }
+            }
+
+            int main() {
+                int num = 6;
+                printf("Fibonacci de %d é %d\n", num, fibonacci(num)); // imprime 8
+                return 0;
+            }
+    ----------------------------------------------------------------------
+    Atividade de Casa
+    ----------------------------------------------------------------------
+            int contador_global = 0;
+            void torre_de_hanoi(int n) {
+                contador_global++;
+                if (n == 1) {
+                    return;
+                }
+                torre_de_hanoi(n - 1);
+                torre_de_hanoi(n - 1);
+            }
+
+            int main() {
+                int num_discos = 3;
+                torre_de_hanoi(num_discos);
+                printf("Total de movimentos: %d\n", contador_global);
+                return 0;
+            }
+    ----------------------------------------------------------------------
